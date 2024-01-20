@@ -9,7 +9,7 @@ export default function WeatherForecast(props) {
 
   useEffect(() => {
     setReady(false);
-  }, [props.coordinates]);
+  }, [props.data.city]);
 
   function handleResponse(response) {
     setForecastData(response.data.daily);
@@ -19,7 +19,7 @@ export default function WeatherForecast(props) {
     return (
       <div className="WeatherForecast row">
         {forecastData.map(function (dailyForecast, index) {
-          if (index < 6) {
+          if (index > 0 && index < 6) {
             return (
               <div className="col" key={index}>
                 <WeatherForecastDay data={dailyForecast} />
@@ -33,10 +33,7 @@ export default function WeatherForecast(props) {
     );
   } else {
     let apiKey = "242e181ca0a34d6a4t3befc66o8e43fa";
-    let longitude = props.data.longitude;
-    let latitude = props.data.latitude;
-    let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${longitude}&lat=${latitude}&key=${apiKey}`;
-
+    let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${props.data.city}&key=${apiKey}`;
     axios.get(apiUrl).then(handleResponse);
     return null;
   }
