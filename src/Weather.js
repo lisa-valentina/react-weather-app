@@ -18,6 +18,7 @@ export default function Weather(props) {
       icon: response.data.weather[0].icon,
       description: response.data.weather[0].description,
       date: new Date(response.data.dt * 1000),
+      coordinates: response.data.coord,
       lon: response.data.coord.lon,
       lat: response.data.coord.lat,
     });
@@ -42,6 +43,7 @@ export default function Weather(props) {
     return (
       <div className="Weather">
         <form onSubmit={handleSubmit}>
+          {" "}
           <div className="row">
             <div className="col-9">
               <input
